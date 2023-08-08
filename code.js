@@ -3,12 +3,12 @@
 console.art = (url, w = 30, h = 15, l = "\u2592", g = [0.6, 0.9], p = function (p) {
 	this.width = p.naturalWidth; this.height = p.naturalHeight;
 	let fit = (a, b) => a.slice(...b.map(v => Math.round(v * a.length))),
+		avg = a => a.reduce((s, v) => v.map((e, i) => s[i] + e), a[0].map(v => 0))
+		.map(v => v/a.length).map(Math.round),
 		cut = (a, n = 4, c = 1) => { let r = [];
 			for (let i = 0; i < a.length; i+= n) r.push([...a.slice(i, i + n - c)]);
 			return r;
 		},
-		avg = a => a.reduce((s, v) => v.map((e, i) => s[i] + e), a[0].map(v => 0))
-		.map(v => v/a.length).map(Math.round),
 		ij = (f, i = [], d) => function () { ((a, d = a, r = a.length ? () => {
 				for (let j = 0; j < a[0]; j++) ij(f, [...i, j], d)(...a.slice(1));
 			} : f) => r(i, d))([...arguments], d);
